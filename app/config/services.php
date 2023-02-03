@@ -11,12 +11,19 @@ use Phalcon\Session\Adapter\Stream as SessionAdapter;
 use Phalcon\Session\Manager as SessionManager;
 use Phalcon\Mvc\Url as UrlResolver;
 
-use App\Services\WebSocket;
+use App\Services\WebSocketServer;
+use App\Services\WebSocketClient;
 
 $di->setShared('webSocket', function() {
-    $webSocket = new WebSocket("0.0.0.0", "9000");
+    $webSocket = new WebSocketServer(WEBSOCKET_ADDRESS, WEBSOCKET_PORT);
     $webSocket->start();
     return $webSocket;
+});
+
+$di->set('webSocketClient', function() {
+    $client = new WebSocketClient(WEBSOCKET_ADDRESS, WEBSOCKET_PORT);
+    $client->connect();
+    return $client;
 });
 
 /**
