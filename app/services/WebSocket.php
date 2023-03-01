@@ -7,7 +7,7 @@ class WebSocket extends Injectable
 {
     private $lockFile = '/tmp/websocket.lock';
 
-    private $socket;
+    private static $socket;
     private $clients = [];
 
     private $address;
@@ -18,8 +18,8 @@ class WebSocket extends Injectable
         $this->port = $port;
     }
 
-    public function start() {
-        if ($this->isProcessRunning()) {
+    public static function start() {
+        if (self::isProcessRunning()) {
             echo "WebSocket Running";
             return;
         }
@@ -29,8 +29,8 @@ class WebSocket extends Injectable
         if ($pid === -1) {
             throw new Exception("Could not fork process");
         } elseif (!$pid) {
-            $this->createLockFile();
-            $this->runWebSocket();
+            self::createLockFile();
+            self::runWebSocket();
             exit();
         }       
     }
@@ -83,7 +83,7 @@ class WebSocket extends Injectable
         $response .= "Upgrade: websocket\r\n";
         $response .= "Connection: Upgrade\r\n";
         $response .= "Sec-WebSocket-Accept: $accept\r\n\r\n";
-        socket_write($client, $response);
+        socket_write($client, $response);   
 
         while (true) {
             $line = socket_read($client, 2048, PHP_NORMAL_READ);
