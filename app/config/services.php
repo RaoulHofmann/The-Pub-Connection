@@ -15,13 +15,13 @@ use App\Services\WebSocketServer;
 use App\Services\WebSocketClient;
 
 $di->setShared('webSocket', function() {
-    $webSocket = new WebSocketServer(WEBSOCKET_ADDRESS, WEBSOCKET_PORT);
+    $webSocket = new WebSocketServer();
     $webSocket->start();
     return $webSocket;
 });
 
 $di->set('webSocketClient', function() {
-    $client = new WebSocketClient(WEBSOCKET_ADDRESS, WEBSOCKET_PORT);
+    $client = new WebSocketClient();
     $client->connect();
     return $client;
 });

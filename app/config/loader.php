@@ -2,6 +2,8 @@
 
 use Phalcon\Autoload\Loader;
 
+include BASE_PATH . '/vendor/autoload.php';
+
 $loader = new Loader();
 
 $loader->setDirectories(

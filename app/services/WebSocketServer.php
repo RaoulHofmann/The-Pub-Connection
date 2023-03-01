@@ -14,10 +14,10 @@ class WebSocketServer extends Injectable
 
     private $output;
 
-    public function __construct($address, $port)
+    public function __construct()
     {
-        $this->address = $address;
-        $this->port = $port;
+        $this->address = $this->request->getServer('HTTP_HOST');
+        $this->port = $this->getDI()->getConfig()->application->websocketPort;
 
         $this->output = fopen('php://stderr', 'w');
     }
@@ -70,22 +70,6 @@ class WebSocketServer extends Injectable
             var_dump($json_encoded_socket_stream);
             sem_release($sem_id);
         }
-    }
-
-    private function runWebSocket()
-    {
-    }
-
-    private function handleConnection($client)
-    {
-    }
-
-    function decodeFrame($data)
-    {
-    }
-
-    function encodeFrame($data, $type = 'text', $masked = true)
-    {
     }
 
     private function isProcessRunning($shm_id)

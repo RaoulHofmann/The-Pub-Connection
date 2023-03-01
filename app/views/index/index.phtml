@@ -1,31 +1,36 @@
-<div class="page-header">
-    <h1>Congratulations!</h1>
-</div>
+<h1>Websocket Chat Server</h1>
+<div id="messages"></div>
 
-<p>You're now flying with Phalcon. Great things are about tsso happen!</p>
+<script type="application/javascript">
+  console.log("ASDASDASDASD")
+var conn = new WebSocket('ws://localhost:8080');
 
-<p>This page is located at <code>views/index/index.phtml</code></p>
+console.log(conn)
 
-<ol class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Subheading</div>
-      Content for list item
-    </div>
-    <span class="badge bg-primary rounded-pill">14</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Subheading</div>
-      Content for list item
-    </div>
-    <span class="badge bg-primary rounded-pill">14</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Subheading</div>
-      Content for list item
-    </div>
-    <span class="badge bg-primary rounded-pill">14</span>
-  </li>
-</ol>
+conn.addEventListener('open', function(e) {
+  addMessage("Connection established!")
+  helloWorldPing()
+});
+
+conn.addEventListener('message', function(e) {
+  addMessage(e.data)
+})
+
+function helloWorldPing() {
+  if (conn.readyState === conn.OPEN) {
+    conn.send('Hello World!');
+    setTimeout(helloWorldPing, 3000);
+  }
+}
+
+function addMessage(message) {
+  var messageTag = document.createElement('div');
+  messageTag.innerHTML = message;
+
+  // We will display as well as log the message.
+  console.log(message)
+  document.getElementById('messages')
+    .appendChild(messageTag)
+}
+
+</script>
