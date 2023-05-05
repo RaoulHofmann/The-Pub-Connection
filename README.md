@@ -1,3 +1,8 @@
+I will be shifiting this project away from phalcon as the documention for version 5.0 are not as fleshed out as it first appeared and there are some discrepancies. The process to setup and get phalcon 5.0 working was not straight forward enough to make deployment easy. 
+Additionally the support for php 8 is not really supported and workarounds were required to make it work together.
+
+I will probably move the project to Java Spring
+
 # The Pub Connection
 
 Ever been at the pub with a group of people and need to order at the bar, trying to orginise it all and make sure everybody is taken care of can be a pain.
